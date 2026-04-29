@@ -1,0 +1,29 @@
+services:
+  dash:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: shuqizhou/dash:v1
+    pull_policy: build
+    container_name: dash_fret
+
+    # GPU access (Docker Desktop on Windows / Compose v2 syntax)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+
+    # Mount output only — keeps pre-trained checkpoint accessible inside container
+    volumes:
+      - ./output:/workspace/output
+
+    # Keep container alive for interactive use
+    stdin_open: true
+    tty: true
+
+    command: demo
