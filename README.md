@@ -102,7 +102,7 @@ mkdir -p output
 
 ### Step 3 — Run the demo
 
-The image ships with built-in demo data so you can test the full pipeline immediately.
+On first run, the image automatically downloads the pre-trained checkpoint and demo dataset from Google Drive (one-time, requires internet access).
 
 **Windows (PowerShell) — with GPU:**
 ```powershell
@@ -127,7 +127,8 @@ docker run --rm -v "$(pwd)/output:/workspace/output" shuqizhou/dash:v1
 #### What you will see
 
 ```
-[DASH] Checkpoint restored.
+[DASH] Checkpoint not found, downloading from Google Drive...
+[DASH] Demo dataset not found, downloading from Google Drive...
 [DASH] Running full demo: step0 → step2 → step3 --batch
 INFO - Processed 5 file(s), saved to: /workspace/output/step0_preprocess/test
 ...
@@ -136,7 +137,7 @@ Evaluating: 100%|██████████| 15/15
 INFO - Saved results → /workspace/output/hmm_result/step3_HMM_as0101_0000.csv
 ```
 
-The full run takes about **2–5 min** with GPU, or **15–30 min** on CPU.
+The full run takes about **2–5 min** with GPU, or **15–30 min** on CPU (not including first-run download time).
 
 #### Check the run completed successfully
 
