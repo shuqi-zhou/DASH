@@ -1,0 +1,13 @@
+Modified 2026-05-31 for ver1/ver2 CRF comparison.
+
+Changes:
+- Disabled AMP in ver2 CRF inference to match ver1 full-precision behavior.
+- Restored original trace order after batch length-sorting before saving predictions.
+- Saved comparison outputs in this 0531compare folder to avoid overwriting normal eval results.
+- Modified Step 3 HMM to accept comparison input/output directories and save HMM outputs under 0531compare.
+- Moved Step 3 BLAS thread limits before NumPy/SciPy import to avoid OpenBLAS thread-allocation crashes.
+- Matched ver2 Step 3 HMM search/scoring to ver1 notebook: nstates=[2,3,4,5], NumPy/SciPy metric calculations, ver1 short-dwell tie behavior, and no cached HMM reuse unless requested.
+- Step 2 CRF comparison check: 20230312 matches ver1 exactly; 20230305 has one extra donor segment in ver2 comparison output at trace 1887, frames 1735:1742.
+
+Reason:
+These changes make ver2 CRF/HMM outputs directly comparable to ver1. AMP, batch sorting, normal pipeline output paths, late BLAS thread setup, stale HMM caches, and Step 3 metric/search differences caused small prediction/order differences, overwrite risk, runtime failure, or non-ver1 HMM selection.
