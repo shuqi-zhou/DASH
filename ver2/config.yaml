@@ -1,0 +1,50 @@
+# DASH Demo configuration
+# Demonstrates the full DASH pipeline
+
+root: "E:/DASH/DASH_code"
+
+# ===================== Step 0: Preprocess =====================
+preprocess:
+  # Raw data directory
+  raw_dir: "Demo/Test_dataset"
+   # Data mode: train (merge all data) or test (process each separately)
+  data_mode: "test"
+  # Whether manual bleaching segment labels are included (with labels for training, without for prediction)
+  contain_label: true
+  processed_dir: "output/step0_preprocess/{data_mode}"
+
+# ===================== Step 1: Train =====================
+train:
+  lr: 0.005
+  hidden_dim: 32
+  num_layers: 3
+  dropout: 0.2
+  batch_size: 128
+  num_epochs: 200
+  resume_start: 0
+  # Training device: cuda:0, cuda:1, ... or cpu
+  device: "cuda:0"
+  train_data_path: "/workspace/output/step0_preprocess/train"
+
+# ===================== Step 2: Evaluate/Test =====================
+evaluate:
+  # Model name - must match training
+  ckpt: "lr0.005_hidden32_num_layers3_dropout0.2_batch_size128"
+  # Checkpoint to load
+  load_ckpt: "epoch_89.pt"
+  # Test data directory (absolute path)
+  test_data_path: "/workspace/output/step0_preprocess/test"
+
+# ===================== Step 3: HMM =====================
+hmm:
+  # HMM input fret data directory
+  fret_dir: "E:/DASH/DASH_code/output/step0_preprocess/test"
+  # pred_seg directory output by step2
+  pred_seg_dir: "E:/DASH/DASH_code/output/eval"
+  # Run mode: "list" (list files), "single" (single file), "batch" (batch processing)
+  mode: "batch"
+  # fret file name to process (without _fret.pkl), only valid when mode="single"
+  # e.g.: "20230305_dpb_20m_S1101_0000" or "data_fret"
+  # The program will automatically find the matching pred_seg file in pred_seg_dir
+  file_name: "as0101_0000"
+

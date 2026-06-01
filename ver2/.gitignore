@@ -1,0 +1,14 @@
+output/
+result/
+ckpt_hmm/
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+*.npz
+*.pkl
+*.pt
+.claude/
+GITHUB_PUBLISH_PLAN.md
+comparison_report.md
+Demo/
