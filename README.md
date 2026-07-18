@@ -104,6 +104,8 @@ mkdir -p output
 
 On first run, the image automatically downloads the pre-trained checkpoint and demo dataset from Google Drive (one-time, requires internet access).
 
+Demo data are also available from [Google Drive](https://drive.google.com/drive/folders/1URRLa70wScRlitYGBpQEXAD5N2_Yu5h9?usp=drive_link).
+
 **Windows (PowerShell) — with GPU:**
 ```powershell
 docker run --gpus all --rm -v "${PWD}/output:/workspace/output" shuqizhou/dash:v1
